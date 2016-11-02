@@ -34,14 +34,13 @@
 
             } 
         ?>
-          
         </div>
 
         <form method="post" class="form-horizontal">
           <div class="control-group">
             <label class="control-label" for="inputEmail">Email</label>
             <div class="controls">
-              <input name="email" required type="text" id="inputEmail" placeholder="Email" class="width_full">
+              <input name="email" required type="text" id="inputEmail" value="<?php echo set_value('email'); ?>" placeholder="Email" class="width_full">
             </div>
           </div>
           <div class="control-group">
