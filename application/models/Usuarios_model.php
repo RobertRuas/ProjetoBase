@@ -29,4 +29,20 @@ class Usuarios_model extends CI_Model {
 			return FALSE;
 		}
 	}
+
+	public function listarUsuarios()
+	{
+		// Definindo paramentro FROM
+		$this->db->from('usuarios');
+
+		//// Definindo paramentro WHERE
+		//$this->db->where('email', $email);
+		//$this->db->where('senha', $senha);
+
+		// Executando a QUERY no Banco de Dados
+		$usuarios = $this->db->get();
+
+		// Retornando o resultado
+		return $usuarios;
+	}
 }

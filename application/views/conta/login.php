@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Página de login</title>
-    <!-- Bootstrap -->
-    <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
+    <?php require 'application/views/includes/header.php'; ?>
   </head>
   <body>
 

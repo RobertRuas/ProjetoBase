@@ -29,10 +29,16 @@ class Conta extends CI_Controller {
 		}
 		/////////////////////////////////////////////////////////////////
 
-		$this->load->view('conta/painel');
+		// Enviar dados para a view
+		$dados = array(
+			'titulo' => 'Painel'
+		);
+
+		// Chamar View
+		$this->load->view('conta/painel', $dados);
 	}
 
-	public function lista_usuarios()
+	public function usuarios()
 	{
 		/////////////////////////////////////////////////////////////////
 		//
@@ -46,7 +52,125 @@ class Conta extends CI_Controller {
 		}
 		/////////////////////////////////////////////////////////////////
 
-		$this->load->view('conta/lista_usuarios');
+		// Carregar model de verificação de usuarios (Usuarios_model)
+		$this->load->model('Usuarios_model');
+
+		// Enviar dados para a view
+		$dados = array(
+			'titulo'   => 'Usuarios', 
+			'tela' 	   => 'listar',
+			'usuarios' => $this->Usuarios_model->listarUsuarios()
+		);
+
+		// Chamar View
+		$this->load->view('conta/usuarios', $dados);
+	}
+
+	public function usuarios_ver()
+	{
+		/////////////////////////////////////////////////////////////////
+		//
+		//  SEGURANÇA
+		//
+		/////////////////////////////////////////////////////////////////
+		// Verifica se o usuario esta logado
+		if ($this->session->userdata('logado') != TRUE) {
+			// Redirecionado para a pagina login
+			redirect(base_url() . 'conta/login');
+		}
+		/////////////////////////////////////////////////////////////////
+
+		// Carregar model de verificação de usuarios (Usuarios_model)
+		$this->load->model('Usuarios_model');
+
+		// Enviar dados para a view
+		$dados = array(
+			'titulo'   => 'Visualizar Usuario', 
+			'tela' 	   => 'ver',
+			'usuarios' => $this->Usuarios_model->listarUsuarios()
+		);
+
+		// Chamar View
+		$this->load->view('conta/usuarios', $dados);
+	}
+
+	public function usuarios_editar()
+	{
+		/////////////////////////////////////////////////////////////////
+		//
+		//  SEGURANÇA
+		//
+		/////////////////////////////////////////////////////////////////
+		// Verifica se o usuario esta logado
+		if ($this->session->userdata('logado') != TRUE) {
+			// Redirecionado para a pagina login
+			redirect(base_url() . 'conta/login');
+		}
+		/////////////////////////////////////////////////////////////////
+
+		// Carregar model de verificação de usuarios (Usuarios_model)
+		$this->load->model('Usuarios_model');
+
+		// Enviar dados para a view
+		$dados = array(
+			'titulo'   => 'Editar Usuario', 
+			'tela' 	   => 'editar',
+			'usuarios' => $this->Usuarios_model->listarUsuarios()
+		);
+
+		// Chamar View
+		$this->load->view('conta/usuarios', $dados);
+	}
+
+		public function usuarios_excluir()
+	{
+		/////////////////////////////////////////////////////////////////
+		//
+		//  SEGURANÇA
+		//
+		/////////////////////////////////////////////////////////////////
+		// Verifica se o usuario esta logado
+		if ($this->session->userdata('logado') != TRUE) {
+			// Redirecionado para a pagina login
+			redirect(base_url() . 'conta/login');
+		}
+		/////////////////////////////////////////////////////////////////
+
+		// Carregar model de verificação de usuarios (Usuarios_model)
+		$this->load->model('Usuarios_model');
+
+		// Enviar dados para a view
+		$dados = array(
+			'titulo'   => 'Ecluir Usuario', 
+			'tela' 	   => 'excluir',
+			'usuarios' => $this->Usuarios_model->listarUsuarios()
+		);
+
+		// Chamar View
+		$this->load->view('conta/usuarios', $dados);
+	}
+
+	public function configuracoes()
+	{
+		/////////////////////////////////////////////////////////////////
+		//
+		//  SEGURANÇA
+		//
+		/////////////////////////////////////////////////////////////////
+		// Verifica se o usuario esta logado
+		if ($this->session->userdata('logado') != TRUE) {
+			// Redirecionado para a pagina login
+			redirect(base_url() . 'conta/login');
+		}
+		/////////////////////////////////////////////////////////////////
+
+		// Enviar dados para a view
+		$dados = array(
+			'titulo' => 'Configurações'
+		);
+
+		// Chamar View
+		$this->load->view('conta/configuracoes', $dados);
 	}
 
 	public function login()
@@ -108,7 +232,7 @@ class Conta extends CI_Controller {
 					$session = array(
 									'nome' 	=> $usuario['nome'],
 									'email'	=> $usuario['email'],
-									'created' => '',
+									'created' => date('d/m/Y H:i:s'),
 									'logado' => TRUE
 					);
 
@@ -140,9 +264,12 @@ class Conta extends CI_Controller {
 		}
 
 		// Definindo varial com a mensagem de retorno para passar para a view
-		$dados = array('alerta' => $alerta);
+		$dados = array(
+			'alerta' => $alerta,
+			'titulo' => 'Login'
+		);
 
-		// Carregando view do login
+		// Chamar View
 		$this->load->view('conta/login', $dados);
 
 	}
