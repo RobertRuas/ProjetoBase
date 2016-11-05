@@ -55,7 +55,7 @@ nav.menu-lateral-painel ul li.bt_sair a { color: #F55;}
 		<p>
 
     <?php 
-
+      
       if(isset($tela)){
         switch ($tela) {
 
@@ -65,7 +65,8 @@ nav.menu-lateral-painel ul li.bt_sair a { color: #F55;}
               //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
               ///////// PAGINA DE LISTAR USUARIOS
               //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+              echo '<a href="' . base_url('conta/usuarios_cadastrar/') . '">
+              <button class="btn btn-success">Cadastrar Novo</button></a>';
               echo '<table class="table table-striped table-hover">';
               echo '  <caption>Usuarios Cadastrados</caption>';
               echo '  <thead>';
@@ -104,15 +105,59 @@ nav.menu-lateral-painel ul li.bt_sair a { color: #F55;}
             break;
           
           case 'ver':
-            echo "visualizar";
+            echo "visualizar " . $id_usuario;
+            break;
+
+          case 'cadastrar':
+            ?>
+                <form  method="post" class="form-horizontal">
+                    <input type="hidden" name="cadastrar">
+
+                    <div class="control-group">
+                      <label class="control-label" for="inputNome">Nome</label>
+                      <div class="controls">
+                        <input name="nome" required type="text" id="inputNome" value="<?php echo set_value('nome'); ?>" placeholder="Nome Completo">
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="inputEmail">Email</label>
+                      <div class="controls">
+                        <input name="email" required type="email" id="inputEmail" value="<?php echo set_value('email'); ?>" placeholder="Email">
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="inputPassword">Senha</label>
+                      <div class="controls">
+                        <input name="senha" required type="password" id="inputPassword" placeholder="Senha">
+                      </div>
+                    </div>
+
+                    <div class="control-group"><br>
+                      <div class="controls">
+                        <input name="senha2" required type="password" id="inputPassword2" placeholder="Repita Senha">
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <div class="controls">
+                        <br>
+                        <button type="submit" class="btn btn-success">Entrar</button>
+                      </div>
+                    </div>
+
+                </form>
+
+            <?php
             break;
 
           case 'editar':
-            echo "Editar";
+            echo "Editar " . $id_usuario;
             break;
 
           case 'excluir':
-            echo "Excluir";
+            echo "Excluir " . $id_usuario;
             break;
         }
       }

@@ -45,4 +45,27 @@ class Usuarios_model extends CI_Model {
 		// Retornando o resultado
 		return $usuarios;
 	}
+
+	public function cadastrarUsuario($dados)
+	{
+		$dados_insert = array(
+							    'nome' 	=> $this->input->post('nome'),
+							    'email' => $this->input->post('email'),
+							    'senha' => $this->input->post('senha'),
+							    'ativo' => 1
+					 	);
+
+		// Inserir os dados da variavel passada como parametro no banco de dados
+		$this->db->set($dados_insert);
+		$this->db->insert('usuarios', $dados_insert);
+
+		if ($this->db->insert_id() > 0) {
+
+			return $this->db->insert_id();
+		}
+		else {
+			
+			return NULL;
+		}
+	}
 }
